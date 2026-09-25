@@ -1,0 +1,1073 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Media Pembelajaran Bahasa Arab MTs Kelas 9</title>
+    
+    <!-- Google Fonts, Font Awesome & Canvas Confetti -->
+    <link href="https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400&family=Poppins:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.6.0/dist/confetti.browser.min.js"></script>
+    
+    <style>
+        :root {
+            --primary: #00897B;
+            --primary-dark: #005B4F;
+            --secondary: #FFB300;
+            --accent: #E91E63;
+            --bg-light: #F0F7F4;
+            --text-dark: #2C3E50;
+            --card-bg: #FFFFFF;
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+
+        body {
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+        }
+
+        /* Header */
+        header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            padding: 1.2rem 2rem;
+            text-align: center;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        header h1 {
+            font-size: 1.5rem;
+            font-weight: 700;
+        }
+
+        header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+        }
+
+        .btn-reset {
+            margin-top: 8px;
+            background: var(--accent);
+            color: white;
+            border: none;
+            padding: 6px 14px;
+            border-radius: 15px;
+            font-size: 0.78rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .btn-reset:hover {
+            opacity: 0.9;
+            transform: scale(1.03);
+        }
+
+        /* Navigasi BAB */
+        nav.bab-nav {
+            background: white;
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            padding: 10px;
+            overflow-x: auto;
+            border-bottom: 3px solid var(--secondary);
+        }
+
+        .btn-bab {
+            background: #E0F2F1;
+            color: var(--primary-dark);
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 600;
+            cursor: pointer;
+            white-space: nowrap;
+            transition: all 0.3s;
+            display: inline-flex;
+            align-items: center;
+        }
+
+        .btn-bab.active, .btn-bab:hover {
+            background: var(--primary);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 0 15px;
+            flex: 1;
+            width: 100%;
+        }
+
+        /* Navigasi Maharah */
+        .maharah-nav {
+            display: flex;
+            justify-content: space-around;
+            background: white;
+            padding: 10px;
+            border-radius: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            flex-wrap: wrap;
+            gap: 5px;
+        }
+
+        .btn-maharah {
+            background: none;
+            border: none;
+            padding: 8px 12px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            color: #666;
+            cursor: pointer;
+            border-bottom: 3px solid transparent;
+            transition: all 0.3s;
+        }
+
+        .btn-maharah.active {
+            color: var(--accent);
+            border-bottom-color: var(--accent);
+        }
+
+        /* Card Content */
+        .card {
+            background: white;
+            border-radius: 20px;
+            padding: 25px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+            margin-bottom: 20px;
+        }
+
+        .arabic-text {
+            font-family: 'Amiri', serif;
+            font-size: 1.8rem;
+            line-height: 2.2;
+            direction: rtl;
+            text-align: right;
+            color: #1A237E;
+        }
+
+        /* Card Tajwid */
+        .tajwid-box {
+            background: #FFF8E1;
+            border-left: 5px solid var(--secondary);
+            padding: 12px 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-size: 0.88rem;
+        }
+
+        .tajwid-box i {
+            color: var(--secondary);
+            margin-right: 5px;
+        }
+
+        /* Grid Mufrodat */
+        .mufrodat-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-top: 15px;
+        }
+
+        .mufrodat-item {
+            background: #F9F9F9;
+            border: 2px solid #E0E0E0;
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .mufrodat-item:hover {
+            border-color: var(--primary);
+            background: #E0F2F1;
+        }
+
+        /* Audio Button */
+        .btn-audio {
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 35px;
+            height: 35px;
+            cursor: pointer;
+            margin-left: 8px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* Quiz / LKPD Options */
+        .quiz-option {
+            display: block;
+            width: 100%;
+            padding: 12px;
+            margin: 8px 0;
+            background: #F5F5F5;
+            border: 2px solid #DDD;
+            border-radius: 10px;
+            text-align: left;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+        }
+
+        .quiz-option:hover:not(:disabled) {
+            background: #E3F2FD;
+            border-color: #2196F3;
+        }
+
+        .quiz-option.correct {
+            background: #C8E6C9 !important;
+            border-color: #4CAF50 !important;
+            color: #1B5E20;
+        }
+
+        .quiz-option.wrong {
+            background: #FFCDD2 !important;
+            border-color: #F44336 !important;
+            color: #B71C1C;
+        }
+
+        /* Modal Overlay Input Nama */
+        .modal-overlay {
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: rgba(0,0,0,0.6);
+            display: none;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            text-align: center;
+            max-width: 420px;
+            width: 90%;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+        }
+
+        .modal-content input {
+            width: 100%;
+            padding: 10px;
+            margin: 15px 0;
+            border: 2px solid var(--primary);
+            border-radius: 8px;
+            font-size: 1rem;
+        }
+
+        /* Template Sertifikat & Transkrip */
+        #certificateView {
+            background: #FFF8E1;
+            border: 10px double var(--primary-dark);
+            padding: 35px 25px;
+            text-align: center;
+            border-radius: 15px;
+            margin-top: 10px;
+        }
+
+        .cert-header { font-family: 'Amiri', serif; font-size: 2.2rem; color: var(--primary-dark); }
+        .cert-name { font-size: 1.8rem; font-weight: bold; color: var(--accent); margin: 15px 0; border-bottom: 2px solid var(--secondary); display: inline-block; padding: 0 20px; }
+
+        .cert-transcript {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 0.85rem;
+            background: white;
+        }
+
+        .cert-transcript th {
+            background-color: var(--primary);
+            color: white;
+            padding: 8px;
+            border: 1px solid var(--primary-dark);
+        }
+
+        .cert-transcript td {
+            padding: 8px;
+            border: 1px solid #DDD;
+            text-align: center;
+        }
+
+        .cert-summary {
+            font-weight: bold;
+            background-color: #E0F2F1 !important;
+        }
+
+        /* Footer */
+        footer {
+            background: var(--primary-dark);
+            color: white;
+            text-align: center;
+            padding: 15px;
+            font-size: 0.85rem;
+            margin-top: auto;
+        }
+
+        /* Pengaturan Cetak PDF / Printer */
+        @media print {
+            header, nav, .maharah-nav, footer, .btn-bab, .modal-overlay, #babHeader, .no-print { display: none !important; }
+            #certificateContainer { display: block !important; }
+            #certificateView { border: 5px double #000; padding: 20px; }
+            body { background: white; }
+        }
+
+        @media (max-width: 600px) {
+            header h1 { font-size: 1.2rem; }
+            .arabic-text { font-size: 1.4rem; line-height: 2; }
+            .maharah-nav { font-size: 0.8rem; }
+            .btn-maharah { padding: 6px 8px; }
+        }
+    </style>
+</head>
+<body>
+
+    <header>
+        <h1><i class="fa-solid fa-book-quran"></i> Media Pembelajaran Bahasa Arab MTs</h1>
+        <p>Kelas 9 - Modul Interaktif & Maharah Bahasa Arab</p>
+        <button class="btn-reset" onclick="confirmResetAllData()">
+            <i class="fa-solid fa-rotate-left"></i> Reset Progres & Ulang Kuis
+        </button>
+    </header>
+
+    <!-- Navigasi Bab -->
+    <nav class="bab-nav" id="babNav"></nav>
+
+    <div class="container">
+        <!-- Informasi Bab Aktif -->
+        <div id="babHeader" style="margin-bottom: 15px;">
+            <h2 id="babTitle" style="color: var(--primary-dark);">BAB 1</h2>
+            <p id="babDesc" style="color: #666; font-size: 0.95rem;"></p>
+        </div>
+
+        <!-- Navigasi Maharah -->
+        <div class="maharah-nav">
+            <button class="btn-maharah active" onclick="switchMaharah('mufrodat')"><i class="fa-solid fa-list-ul"></i> Mufrodat</button>
+            <button class="btn-maharah" onclick="switchMaharah('istima')"><i class="fa-solid fa-headphones"></i> Istima'</button>
+            <button class="btn-maharah" onclick="switchMaharah('qiroah')"><i class="fa-solid fa-book-open"></i> Qiroah</button>
+            <button class="btn-maharah" onclick="switchMaharah('kalam')"><i class="fa-solid fa-comments"></i> Kalam</button>
+            <button class="btn-maharah" onclick="switchMaharah('kitabah')"><i class="fa-solid fa-pen-nib"></i> Kitabah & Kuis</button>
+        </div>
+
+        <!-- Area Konten Utama -->
+        <div id="maharahContent"></div>
+    </div>
+
+    <!-- Modal Input Nama untuk Sertifikat -->
+    <div class="modal-overlay" id="certModal">
+        <div class="modal-content">
+            <i class="fa-solid fa-trophy" style="font-size: 3rem; color: var(--secondary);"></i>
+            <h3 style="margin-top: 10px; color: var(--primary-dark);">Mumtaz! Selamat!</h3>
+            <p style="font-size: 0.9rem; color: #555;">Kamu telah menyelesaikan seluruh kuis dari BAB 1 sampai BAB 6.</p>
+            <input type="text" id="studentName" placeholder="Masukkan Nama Lengkap Sesuai Absen...">
+            <button class="btn-bab" onclick="generateCertificate()" style="width: 100%; justify-content: center;">
+                <i class="fa-solid fa-certificate" style="margin-right: 6px;"></i> Buat Sertifikat
+            </button>
+        </div>
+    </div>
+
+    <!-- Container Tampilan Sertifikat & Transkrip Nilai -->
+    <div id="certificateContainer" class="container" style="display: none;">
+        <div id="certificateView">
+            <div class="cert-header">شَهَادَةُ تَقْدِيرٍ</div>
+            <h2 style="letter-spacing: 2px; color: var(--primary-dark); font-size: 1.4rem;">SERTIFIKAT PENGHARGAAN</h2>
+            <p style="margin-top: 10px; font-size: 0.95rem;">Diberikan kepada siswa berprestasi:</p>
+            <div class="cert-name" id="displayStudentName">Nama Siswa</div>
+            <p style="font-size: 0.95rem; line-height: 1.5; margin: 10px 0;">
+                Atas keberhasilannya dalam menyelesaikan seluruh Modul Pembelajaran Interaktif & Evaluasi Maharah 
+                <b>Bahasa Arab Kelas 9 MTs (BAB 1 - BAB 6)</b>.
+            </p>
+
+            <!-- Tabel Transkrip Nilai -->
+            <div style="margin-top: 20px; text-align: left;">
+                <h4 style="color: var(--primary-dark); text-align: center; margin-bottom: 8px;">
+                    <i class="fa-solid fa-list-check"></i> TRANSKRIP HASIL EVALUASI KUIS
+                </h4>
+                <table class="cert-transcript">
+                    <thead>
+                        <tr>
+                            <th>No</th>
+                            <th>Materi Pembelajaran (BAB)</th>
+                            <th>Nilai</th>
+                            <th>Predikat</th>
+                        </tr>
+                    </thead>
+                    <tbody id="transcriptBody"></tbody>
+                    <tfoot>
+                        <tr class="cert-summary">
+                            <td colspan="2" style="text-align: right;"><b>Rata-rata Nilai Akhir:</b></td>
+                            <td id="avgScore">0</td>
+                            <td id="finalGrade">-</td>
+                        </tr>
+                    </tfoot>
+                </table>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; margin-top: 30px; padding: 0 20px; font-size: 0.9rem;">
+                <div>
+                    <p>Mengetahui,</p>
+                    <p style="margin-top: 40px;"><b>Guru Bahasa Arab</b></p>
+                </div>
+                <div>
+                    <p>Tanggal Lulus:</p>
+                    <p style="margin-top: 40px;"><b id="certDate">25 September 2026</b></p>
+                </div>
+            </div>
+        </div>
+
+        <div class="no-print" style="text-align: center; margin-top: 20px; display: flex; gap: 10px; justify-content: center;">
+            <button class="btn-bab" onclick="window.print()"><i class="fa-solid fa-print" style="margin-right: 5px;"></i> Cetak / Simpan PDF</button>
+            <button class="btn-bab" style="background: #757575; color: white;" onclick="closeCertificate()">Kembali ke Modul</button>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2026 Modul Pembelajaran Bahasa Arab MTs Kelas 9 | Bismillah, Semangat Belajar!</p>
+    </footer>
+
+    <script>
+        // Data Pembelajaran Lengkap BAB 1 - BAB 6
+        const dataset = {
+            bab1: {
+                title: "BAB 1: رأس السنة الهجرية",
+                subtitle: "Tahun Baru Hijriah",
+                mufrodat: {
+                    items: [
+                        { ar: "سَنَةٌ هِجْرِيَّةٌ جَدِيدَةٌ", id: "Tahun Baru Hijriah" },
+                        { ar: "شَهْرٌ / أَشْهُرٌ", id: "Bulan / Bulan-bulan" },
+                        { ar: "تَقْوِيمٌ هِجْرِيٌّ", id: "Kalender Hijriah" },
+                        { ar: "الْمُحَرَّمُ", id: "Bulan Muharram" },
+                        { ar: "هَاجَرَ - يُهَاجِرُ", id: "Hijrah / Pindah" },
+                        { ar: "تَارِيخٌ", id: "Sejarah / Tanggal" }
+                    ],
+                    tajwid: "<b>Tips Tajwid (Mad Thabi'i):</b> Perhatikan kata سَنَةٌ هِجْرِيَّةٌ - Ya sukun didahului Kasrah dibaca panjang 2 harakat."
+                },
+                istima: {
+                    text: "يَحْتَفِلُ الْمُسْلِمُونَ بِرَأْسِ السَّنَةِ الْهِجْرِيَّةِ الْجَدِيدَةِ فِي الْأَوَّلِ مِنْ مُحَرَّمٍ. وَهُمْ يَسْتَمِعُونَ إِلَى الْمُحَاضَرَةِ الدِّينِيَّةِ فِي الْمَسْجِدِ.",
+                    meaning: "Umat Islam merayakan tahun baru Hijriah pada tanggal satu Muharram. Mereka mendengarkan ceramah agama di masjid.",
+                    tajwid: "<b>Tips Tajwid (Ghunnah):</b> Pada kata مِنْ مُحَرَّمٍ terdapat hukum Idgham Bighunnah, dengungkan 2 harakat."
+                },
+                qiroah: {
+                    text: "كَانَ الرَّسُولُ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ وَأَصْحَابُهُ يُهَاجِرُونَ مِنْ مَكَّةَ إِلَى الْمَدِينَةِ. تَرَكَ الْمُسْلِمُونَ أَمْوَالَهُمْ وَبُيُوتَهُمْ فِي مَكَّةَ. وَالَّذِي وَضَعَ التَّقْوِيمَ الْهِجْرِيَّ هُوَ عُمَرُ بْنُ الْخَطَّابِ رَضِيَ اللهُ عَنْهُ.",
+                    meaning: "Rasulullah SAW dan para sahabatnya berhijrah dari Makkah ke Madinah. Umat Islam meninggalkan harta dan rumah mereka di Makkah. Orang yang menetapkan kalender Hijriah adalah Umar bin Khattab RA.",
+                    tajwid: "<b>Tips Tajwid (Alif Lam Syamsiyah):</b> Kata الرَّسُولُ dibaca melebur langsung ke huruf Ra bertasydid."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "أَحْمَدُ", ar: "السَّلَامُ عَلَيْكُمْ، يَا عَلِيُّ!" },
+                        { speaker: "عَلِيٌّ", ar: "وَعَلَيْكُمُ السَّلَامُ، يَا أَحْمَدُ!" },
+                        { speaker: "أَحْمَدُ", ar: "مَتَى يَحْتَفِلُ الْمُسْلِمُونَ بِرَأْسِ السَّنَةِ الْهِجْرِيَّةِ؟" },
+                        { speaker: "عَلِيٌّ", ar: "يَحْتَفِلُونَ فِي الْأَوَّلِ مِنْ شَهْرِ مُحَرَّمٍ." }
+                    ],
+                    tajwid: "<b>Tips Tajwid (Waqaf):</b> Pada akhir kalimat dialog, matikan harakat terakhir dengan sopan (Sukun)."
+                },
+                kitabah: {
+                    grammarTitle: "تَصْرِيفُ الْفِعْلِ الْمَاضِي (Tashrif Fi'il Madhi)",
+                    grammarDesc: "Fi'il Madhi adalah kata kerja yang menunjukkan waktu lampau.",
+                    examples: [
+                        "هُوَ : هَاجَرَ (Dia Laki-laki telah hijrah)",
+                        "هِيَ : هَاجَرَتْ (Dia Perempuan telah hijrah)",
+                        "أَنْتَ : هَاجَرْتَ (Kamu Laki-laki telah hijrah)",
+                        "أَنَا : هَاجَرْتُ (Saya telah hijrah)"
+                    ],
+                    tajwid: "<b>Tips Tajwid (Qalqalah Kubra):</b> Pada huruf Ba/Dal sukun di akhir kalimat, pantulkan suara dengan jelas."
+                },
+                quiz: [
+                    { q: "Apa arti dari 'سَنَةٌ هِجْرِيَّةٌ جَدِيدَةٌ'?", options: ["Tahun Baru Hijriah", "Hari Raya Fitri", "Bulan Ramadhan"], ans: 0 },
+                    { q: "Siapa khalifah yang menetapkan kalender Hijriah?", options: ["Abu Bakar RA", "Umar bin Khattab RA", "Utsman bin Affan RA"], ans: 1 }
+                ]
+            },
+            bab2: {
+                title: "BAB 2: الحفل بمولد الرسول",
+                subtitle: "Peringatan Maulid Nabi",
+                mufrodat: {
+                    items: [
+                        { ar: "مَوْلِدُ الرَّسُولِ", id: "Kelahiran Rasulullah" },
+                        { ar: "احْتَفَلَ - يَحْتَفِلُ", id: "Merayakan" },
+                        { ar: "مُحَاضَرَةٌ دِينِيَّةٌ", id: "Ceramah Agama" },
+                        { ar: "مُبَلِّغٌ / دَاعِيَةٌ", id: "Penceramah" },
+                        { ar: "وُلِدَ", id: "Dilahirkan" },
+                        { ar: "عَامُ الْفِيلِ", id: "Tahun Gajah" }
+                    ],
+                    tajwid: "<b>Tips Tajwid (Mad Layyin):</b> Pada kata مَوْلِدُ terdapat Wau sukun didahului Fathah, dibaca lembut."
+                },
+                istima: {
+                    text: "وُلِدَ النَّبِيُّ مُحَمَّدٌ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي يَوْمِ الْإِثْنَيْنِ، 12 رَبِيعِ الْأَوَّلِ فِي عَامِ الْفِيلِ. كَانَ أَبُوهُ عَبْدُ اللهِ قَدْ تُوُفِّيَ وَهُوَ فِي بَطْنِ أُمِّهِ.",
+                    meaning: "Nabi Muhammad SAW dilahirkan pada hari Senin, 12 Rabi'ul Awwal pada Tahun Gajah. Ayahnya Abdullah telah wafat saat beliau masih di dalam kandungan ibunya.",
+                    tajwid: "<b>Tips Tajwid (Ikhfa Haqiqi):</b> Kata 'مِنْ قَبْلُ' dibaca samar dengan dengung."
+                },
+                qiroah: {
+                    text: "أَقَامَتْ مَدْرَسَتُنَا حَفْلًا كَبِيرًا بِمُنَاسَبَةِ مَوْلِدِ الرَّسُولِ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ. أَلْقَى الأُسْتَاذُ حَسَنٌ مُحَاضَرَةً دِينِيَّةً قَيِّمَةً عَنْ أَخْلَاقِ النَّبِيِّ.",
+                    meaning: "Sekolah kami mengadakan acara besar dalam rangka memperingati maulid Rasulullah SAW. Ustadz Hasan menyampaikan ceramah agama yang berharga tentang akhlak Nabi.",
+                    tajwid: "<b>Tips Tajwid (Tanwin ketemu Kaf):</b> Dalam حَفْلًا كَبِيرًا dibaca Ikhfa (samar)."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "فَاطِمَةُ", ar: "هَلْ حَضَرْتِ الْحَفْلَ أَمْسِ يَا عَائِشَةُ؟" },
+                        { speaker: "عَائِشَةُ", ar: "نَعَمْ، حَضَرْتُ الْحَفْلَ فِي مَدْرَسَتِنَا." },
+                        { speaker: "فَاطِمَةُ", ar: "مَاذَا فَعَلْتُمْ فِي الْحَفْلِ؟" },
+                        { speaker: "عَائِشَةُ", ar: "اسْتَمَعْنَا إِلَى الْمُحَاضَرَةِ الدِّينِيَّةِ." }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Lafalkan huruf Ha (ح) halus dari tengah tenggorokan."
+                },
+                kitabah: {
+                    grammarTitle: "كَاَنَ وَاسْمُهَا وَخَبَرُهَا (Kana & Saudaranya)",
+                    grammarDesc: "Kāna masuk ke jumlah ismiyyah; merfa'kan Isim dan menashabkan Khabar.",
+                    examples: [
+                        "كَانَ النَّبِيُّ كَرِيمًا (Nabi adalah seorang yang mulia)",
+                        "كَانَتِ المَدْرَسَةُ نَظِيفَةً (Sekolah itu bersih)"
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Panjangkan harakat Alif pada كَانَ sepanjang 2 harakat."
+                },
+                quiz: [
+                    { q: "Kapan Nabi Muhammad SAW dilahirkan?", options: ["12 Rabi'ul Awwal", "1 Muharram", "17 Ramadhan"], ans: 0 },
+                    { q: "Apa fungsi Kāna terhadap Khabar?", options: ["Menashabkan (Fathah)", "Merfa'kan (Dammah)", "Menjazamkan (Sukun)"], ans: 0 }
+                ]
+            },
+            bab3: {
+                title: "BAB 3: نزول القرآن والعيدان",
+                subtitle: "Nuzulul Qur'an & Dua Hari Raya",
+                mufrodat: {
+                    items: [
+                        { ar: "نُزُولُ الْقُرْآنِ", id: "Turunnya Al-Qur'an" },
+                        { ar: "غَارُ حِرَاءٍ", id: "Gua Hira" },
+                        { ar: "عِيدُ الْفِطْرِ", id: "Hari Raya Idul Fitri" },
+                        { ar: "عِيدُ الْأَضْحَى", id: "Hari Raya Idul Adha" },
+                        { ar: "صَامَ - يَصُومُ", id: "Berpuasa" },
+                        { ar: "ذَبَحَ - يَذْبَحُ", id: "Menyembelih" }
+                    ],
+                    tajwid: "<b>Tips Tajwid (Izhar Halqi):</b> Pada غَارُ حِرَاءٍ dibaca jelas tanpa dengung."
+                },
+                istima: {
+                    text: "نَزَلَ الْقُرْآنُ الْكَرِيمُ عَلَى النَّبِيِّ صَلَّى اللهُ عَلَيْهِ وَسَلَّمَ فِي لَيْلَةِ 17 مِنْ شَهْرِ رَمَضَانَ فِي غَارِ حِرَاءٍ. وَأَوَّلُ سُورَةٍ نَزَلَتْ هِيَ سُورَةُ الْعَلَقِ.",
+                    meaning: "Al-Qur'anul Karim turun kepada Nabi SAW pada malam 17 Ramadhan di Gua Hira. Surah pertama yang turun adalah Surah Al-'Alaq.",
+                    tajwid: "<b>Tips Tajwid:</b> Perhatikan dengung Mim Tasydid pada 'رَمَضَانَ'."
+                },
+                qiroah: {
+                    text: "لِلْمُسْلِمِينَ عِيدَانِ هُمَا: عِيدُ الْفِطْرِ وَعِيدُ الْأَضْحَى. يَحْتَفِلُ الْمُسْلِمُونَ بِعِيدِ الْفِطْرِ بَعْدَ صِيَامِ رَمَضَانَ فِي الْأَوَّلِ مِنْ شَوَّالٍ.",
+                    meaning: "Bagi umat Islam ada dua hari raya: Idul Fitri dan Idul Adha. Umat Islam merayakan Idul Fitri setelah puasa Ramadhan pada 1 Syawwal.",
+                    tajwid: "<b>Tips Tajwid (Alif Lam Qamariyah):</b> Baca 'الْفِطْرِ' dengan Al- jelas."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "يُوسُفُ", ar: "أَيْنَ صَلَّيْتَ صَلَاةَ الْعِيدِ يَا إِبْرَاهِيمُ؟" },
+                        { speaker: "إِبْرَاهِيمُ", ar: "صَلَّيْتُ صَلَاةَ الْعِيدِ فِي الْمَسْجِدِ الْكَبِيرِ." },
+                        { speaker: "يُوسُفُ", ar: "وَمَاذَا فَعَلْتَ بَعْدَ الصَّلَاةِ؟" },
+                        { speaker: "إِبْرَاهِيمُ", ar: "زُرْتُ أَقَارِبِي وَتَبَادَلْنَا التَّهْنِئَةَ." }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Pelafalan Dhad (ض) pada 'صَلَاةَ' tebal dan fasih."
+                },
+                kitabah: {
+                    grammarTitle: "الْمَزِيدُ مِنَ الْفِعْلِ الثُّلَاثِيِّ (Fi'il Tsulatsy Mazid)",
+                    grammarDesc: "Kata kerja dasar 3 huruf yang mendapat tambahan huruf.",
+                    examples: [
+                        "أَنْزَلَ - يُنْزِلُ (Menurunkan)",
+                        "كَبَّرَ - يُكَبِّرُ (Bertakbir)",
+                        "اِحْتَفَلَ - يَحْتَفِلُ (Merayakan)"
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Perhatikan konsistensi panjang pendek huruf."
+                },
+                quiz: [
+                    { q: "Surah apa yang pertama kali turun?", options: ["Al-Fatihah", "Al-'Alaq", "Al-Baqarah"], ans: 1 },
+                    { q: "Kapan Idul Fitri dirayakan?", options: ["1 Syawwal", "10 Dzulhijjah", "1 Muharram"], ans: 0 }
+                ]
+            },
+            bab4: {
+                title: "BAB 4: جمال الطبيعة",
+                subtitle: "Keindahan Alam",
+                mufrodat: {
+                    items: [
+                        { ar: "طَبِيعَةٌ", id: "Alam" },
+                        { ar: "جَبَلٌ / جِبَالٌ", id: "Gunung" },
+                        { ar: "بَحْرٌ / بِحَارٌ", id: "Laut" },
+                        { ar: "شَلَّالٌ", id: "Air Terjun" },
+                        { ar: "مَزْرَعَةٌ", id: "Sawah / Kebun" },
+                        { ar: "مَنَاظِرُ جَمِيلَةٌ", id: "Pemandangan Indah" }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Huruf Zha (ظ) dalam مَنَاظِرُ dikeluarkan dengan lidah sedikit menyentuh gigi atas."
+                },
+                istima: {
+                    text: "خَلَقَ اللهُ هَذَا الْكَوْنَ بِجَمَالٍ بَادٍ. نَرَى الْجِبَالَ الْعَالِيَةَ، وَالْبِحَارَ الْوَاسِعَةَ، وَالْأَشْجَارَ الْخَضْرَاءَ. سُبْحَانَ اللهِ الْخَالِقِ الْعَظِيمِ!",
+                    meaning: "Allah menciptakan alam semesta ini dengan keindahan yang tampak. Kita melihat gunung yang tinggi, laut yang luas, dan pepohonan hijau. Maha Suci Allah Sang Pencipta Yang Maha Agung!",
+                    tajwid: "<b>Tips Tajwid (Tafkhim):</b> Lafal Allah (اللهُ) dibaca tebal karena didahului Fathah/Dammah."
+                },
+                qiroah: {
+                    text: "ذَهَبَ الطُّلَّابُ فِي رِحْلَةٍ مَدْرَسِيَّةٍ إِلَى الْجَبَلِ. كَانَتِ المَنَاظِرُ هُنَاكَ جَمِيلَةً جِدًّا. الهَوَاءُ نَقِيٌّ، وَالأَشْجَارُ خَضْرَاءُ.",
+                    meaning: "Para siswa pergi berwisata sekolah ke gunung. Pemandangan di sana sangat indah. Udara bersih dan pohon-pohon hijau.",
+                    tajwid: "<b>Tips Tajwid (Mad Wajib Muttashil):</b> Kata 'خَضْرَاءُ' dibaca panjang 4-5 harakat."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "عُثْمَانُ", ar: "كَيْفَ قَضَيْتَ العُطْلَةَ يَا عُمَرُ؟" },
+                        { speaker: "عُمَرُ", ar: "ذَهَبْتُ مَعَ أُسْرَتِي إِلَى شَاطِئِ الْبَحْرِ." },
+                        { speaker: "عُثْمَانُ", ar: "مَاذَا رَأَيْتَ هُنَاكَ؟" },
+                        { speaker: "عُمَرُ", ar: "رَأَيْتُ الْمَاءَ الأَزْرَقَ وَالأَسْمَاك." }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Pengucapan huruf 'Ain (ع) pada 'العُطْلَةَ' tepat di tenggorokan."
+                },
+                kitabah: {
+                    grammarTitle: "أَفْعَلُ التَّفْضِيلِ (Isim Tafdhil)",
+                    grammarDesc: "Kata sifat untuk menyatakan arti 'lebih' atau 'paling'.",
+                    examples: [
+                        "جَمِيلٌ ➔ أَجْمَلُ (Lebih / Paling Indah)",
+                        "كَبِيرٌ ➔ أَكْبَرُ (Lebih / Paling Besar)",
+                        "كَثِيرٌ ➔ أَكْثَرُ (Lebih / Paling Banyak)"
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Huruf Hamzah di awal pola أَفْعَلُ dibaca jelas (Akal)."
+                },
+                quiz: [
+                    { q: "Apa arti dari 'شَلَّالٌ'?", options: ["Air Terjun", "Danau", "Laut"], ans: 0 },
+                    { q: "Bentuk Isim Tafdhil dari 'كَبِيرٌ' adalah...", options: ["أَكْبَرُ", "كَبِيرَةٌ", "كُبْرَى"], ans: 0 }
+                ]
+            },
+            bab5: {
+                title: "BAB 5: الخالق العالم",
+                subtitle: "Pencipta Alam Semesta",
+                mufrodat: {
+                    items: [
+                        { ar: "الْخَالِقُ", id: "Sang Pencipta" },
+                        { ar: "المَخْلُوقَاتُ", id: "Ciptaan-ciptaan" },
+                        { ar: "سَمَاءٌ / سَمَاوَاتٌ", id: "Langit" },
+                        { ar: "أَرْضٌ", id: "Bumi" },
+                        { ar: "شَمْسٌ وَقَمَرٌ", id: "Matahari & Bulan" },
+                        { ar: "كَوْكَبٌ / كَوَاكِبُ", id: "Bintang / Planet" }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Huruf Kha (خ) dibaca tebal dan berhembus halus."
+                },
+                istima: {
+                    text: "اللهُ هُوَ الَّذِي خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ فِي سِتَّةِ أَيَّامٍ. هُوَ يَرْزُقُ كُلَّ كَائِنٍ حَيٍّ فِي هَذَا الْعَالَمِ.",
+                    meaning: "Allah dialah yang menciptakan langit dan bumi dalam enam masa. Dia memberi rezeki kepada setiap makhluk hidup di alam ini.",
+                    tajwid: "<b>Tips Tajwid (Idgham Bighunnah):</b> Pada 'كَا ئِنٍ حَيٍّ' perhatikan hukum Izhar Halqi."
+                },
+                qiroah: {
+                    text: "انْظُرْ إِلَى السَّمَاءِ فِي اللَّيْلِ! تَرَى النُّجُومَ تَلْمَعُ وَالْقَمَرَ يُنِيرُ الأَرْضَ. وَفِي النَّهَارِ تَبْرُزُ الشَّمْسُ لِتُعْطِيَنَا الضَّوْءَ.",
+                    meaning: "Lihatlah ke langit di malam hari! Kamu melihat bintang bersinar dan bulan menerangi bumi. Di siang hari matahari muncul memberi cahaya.",
+                    tajwid: "<b>Tips Tajwid:</b> Perhatikan Ra Sukun tebal pada kata 'انْظُرْ'."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "حَسَنٌ", ar: "مَنْ خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ؟" },
+                        { speaker: "حُسَيْنٌ", ar: "اللهُ سُبْحَانَهُ وَتَعَالَى هُوَ الَّذِي خَلَقَهُمَا." },
+                        { speaker: "حَسَنٌ", ar: "وَلِمَاذَا خَلَقَنَا اللهُ؟" },
+                        { speaker: "حُسَيْنٌ", ar: "خَلَقَنَا اللهُ لِنَعْبُدَهُ وَنَعْمُرَ الأَرْضَ." }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Lafalkan Dzal (ذ) pada 'الَّذِي' dengan menyentuh ujung gigi."
+                },
+                kitabah: {
+                    grammarTitle: "الْمَوْصُولُ (Isim Maushul / Kata Sambung)",
+                    grammarDesc: "Kata sambung untuk menghubungkan kata atau kalimat.",
+                    examples: [
+                        "الَّذِي (Yang - Laki-laki Tunggal)",
+                        "الَّتِي (Yang - Perempuan / Jamak Tak Aqil)",
+                        "الَّذِينَ (Yang - Laki-laki Jamak)"
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Pertahankan kecermatan membaca Tasydid pada اللَّذِي."
+                },
+                quiz: [
+                    { q: "Isim Maushul untuk kata tunggal laki-laki adalah...", options: ["الَّذِي", "الَّتِي", "الَّذِينَ"], ans: 0 },
+                    { q: "Apa arti dari 'شَمْسٌ وَقَمَرٌ'?", options: ["Matahari dan Bulan", "Bintang dan Alam", "Langit dan Bumi"], ans: 0 }
+                ]
+            },
+            bab6: {
+                title: "BAB 6: الحفاظ على البيئة",
+                subtitle: "Pelestarian Lingkungan",
+                mufrodat: {
+                    items: [
+                        { ar: "الْبِيئَةُ", id: "Lingkungan" },
+                        { ar: "نَظَافَةٌ", id: "Kebersihan" },
+                        { ar: "تَلَوُّثٌ", id: "Polusi / Pencemaran" },
+                        { ar: "غَرْسُ الْأَشْجَارِ", id: "Menanam Pohon" },
+                        { ar: "قُمَامَةٌ", id: "Sampah" },
+                        { ar: "حِمَايَةٌ / حِفَاظٌ", id: "Pelestarian" }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Huruf Tha (ط) dalam نَظَافَةٌ adalah huruf Isti'la (tebal)."
+                },
+                istima: {
+                    text: "النَّظَافَةُ مِنَ الْإِيمَانِ. يَجِبُ عَلَيْنَا أَنْ نُحَافِظَ عَلَى نَظَافَةِ بِيئَتِنَا وَلاَ نُلْقِيَ الْقُمَامَةَ فِي الشَّوَارِعِ.",
+                    meaning: "Kebersihan adalah bagian dari iman. Wajib bagi kita menjaga kebersihan lingkungan dan tidak membuang sampah di jalanan.",
+                    tajwid: "<b>Tips Tajwid (Ikhfa):</b> Huruf Nun Sukun bertemu Kaf pada 'مِنَ الْإِيمَانِ' dibaca jelas (Izhar)."
+                },
+                qiroah: {
+                    text: "الحِفَاظُ عَلَى الْبِيئَةِ وَاجِبٌ عَلَى كُلِّ مُسْلِمٍ. التَّلَوُّثُ يُسَبِّبُ الأَمْرَاضَ لِلإِنْسَانِ. لِذَلِكَ نَقُومُ بِتَنْظِيفِ المَدْرَسَةِ.",
+                    meaning: "Menjaga lingkungan adalah kewajiban setiap muslim. Polusi menyebabkan penyakit bagi manusia. Oleh karena itu kita membersihkan sekolah.",
+                    tajwid: "<b>Tips Tajwid:</b> Perhatikan Tasydid pada kata 'التَّلَوُّثُ'."
+                },
+                kalam: {
+                    dialog: [
+                        { speaker: "Siti", ar: "كَيْفَ نُحَافِظُ عَلَى نَظَافَةِ مَدْرَسَتِنَا؟" },
+                        { speaker: "Rina", ar: "نُلْقِي الْقُمَامَةَ فِي مَكَانِهَا وَنُنَظِّفُ الْفَصْلَ." },
+                        { speaker: "Siti", ar: "وَهَلْ نَغْرِسُ الأَشْجَارَ أَيْضًا؟" },
+                        { speaker: "Rina", ar: "نَعَمْ، لِكَيْ يَصْبِحَ الهَوَاءُ نَقِيًّا." }
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Dengungkan hukum Tanwin bertemu Ya pada 'نَقِيًّا'."
+                },
+                kitabah: {
+                    grammarTitle: "أَدَوَاتُ النَّصْبِ وَالْجَزْمِ (Huruf Nashab & Jazam)",
+                    grammarDesc: "Huruf yang mengubah harakat akhir Fi'il Mudhari' menjadi Fathah atau Sukun.",
+                    examples: [
+                        "Huruf Nashab (Fathah): أَنْ، لَنْ، كَيْ (Contoh: أَنْ نُحَافِظَ)",
+                        "Huruf Jazam (Sukun): لَمْ، لَا (Nahi) (Contoh: لَا تُفْسِدْ)"
+                    ],
+                    tajwid: "<b>Tips Tajwid:</b> Perhatikan kejelasan mati (Sukun) pada Fi'il Majzum."
+                },
+                quiz: [
+                    { q: "Apa arti 'النَّظَافَةُ مِنَ الْإِيمَانِ'?", options: ["Kebersihan bagian dari iman", "Menanam pohon itu wajib", "Membawa sampah pada tempatnya"], ans: 0 },
+                    { q: "Manakah yang termasuk Huruf Nashab?", options: ["أَنْ", "لَمْ", "عَلَى"], ans: 0 }
+                ]
+            }
+        };
+
+        // State Aplikasi
+        let currentBab = 'bab1';
+        let currentMaharah = 'mufrodat';
+        let quizScores = JSON.parse(localStorage.getItem('quizScores') || '{}');
+
+        // Inisialisasi Aplikasi
+        window.onload = function() {
+            renderBabButtons();
+            loadContent();
+        };
+
+        // Render Navigasi Bab + Centang Hijau (✓)
+        function renderBabButtons() {
+            const babNav = document.getElementById('babNav');
+            babNav.innerHTML = '';
+            
+            const completedBab = JSON.parse(localStorage.getItem('completedBab') || '[]');
+            
+            Object.keys(dataset).forEach((key, index) => {
+                const btn = document.createElement('button');
+                btn.className = `btn-bab ${key === currentBab ? 'active' : ''}`;
+                
+                const isCompleted = completedBab.includes(key);
+                const checkIcon = isCompleted ? ' <i class="fa-solid fa-circle-check" style="color: #2E7D32; margin-left: 5px;"></i>' : '';
+                
+                btn.innerHTML = `BAB ${index + 1}${checkIcon}`;
+                btn.onclick = () => switchBab(key);
+                babNav.appendChild(btn);
+            });
+        }
+
+        // Pindah Bab & Maharah
+        function switchBab(babKey) {
+            currentBab = babKey;
+            renderBabButtons();
+            loadContent();
+        }
+
+        function switchMaharah(maharah) {
+            currentMaharah = maharah;
+            document.querySelectorAll('.btn-maharah').forEach(btn => btn.classList.remove('active'));
+            event.currentTarget.classList.add('active');
+            loadContent();
+        }
+
+        // Text-to-Speech Arab
+        function playAudio(text) {
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.8;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Efek Perayaan (Konfeti & Suara Utterance)
+        function triggerCelebrationEffect() {
+            confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0, y: 0.7 } });
+            confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1, y: 0.7 } });
+
+            if ('speechSynthesis' in window) {
+                window.speechSynthesis.cancel();
+                const utterance = new SpeechSynthesisUtterance("أَلْحَمْدُ لِلَّهِ! مُمْتَاز");
+                utterance.lang = 'ar-SA';
+                utterance.rate = 0.9;
+                window.speechSynthesis.speak(utterance);
+            }
+        }
+
+        // Load Content Utama
+        function loadContent() {
+            const data = dataset[currentBab];
+            document.getElementById('babTitle').innerText = data.title;
+            document.getElementById('babDesc').innerText = data.subtitle;
+
+            const container = document.getElementById('maharahContent');
+            container.innerHTML = '';
+
+            if (currentMaharah === 'mufrodat') {
+                let html = `<div class="card">
+                    <h3><i class="fa-solid fa-list-ul"></i> المفردات (Mufrodat - Kosakata)</h3>
+                    <p style="font-size: 0.88rem; color: #666;">Klik pada kartu kosakata untuk mendengarkan pelafalannya!</p>
+                    <div class="mufrodat-grid">`;
+                
+                data.mufrodat.items.forEach(item => {
+                    html += `
+                        <div class="mufrodat-item" onclick="playAudio('${item.ar}')">
+                            <div class="arabic-text" style="font-size: 1.5rem;">${item.ar}</div>
+                            <div style="font-size: 0.9rem; font-weight: 600; color: #555; margin-top: 5px;">${item.id}</div>
+                            <button class="btn-audio" style="margin-top: 8px;"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>`;
+                });
+
+                html += `</div>
+                    <div class="tajwid-box"><i class="fa-solid fa-lightbulb"></i> ${data.mufrodat.tajwid}</div>
+                </div>`;
+                container.innerHTML = html;
+
+            } else if (currentMaharah === 'istima') {
+                container.innerHTML = `
+                    <div class="card">
+                        <h3><i class="fa-solid fa-headphones"></i> الاستماع (Istima' - Simakan)</h3>
+                        <p style="margin-bottom: 15px; font-size:0.88rem; color:#666;">Dengarkan teks bacaan berikut secara saksama:</p>
+                        
+                        <div style="text-align:center; margin-bottom: 20px;">
+                            <button class="btn-bab" style="padding: 10px 20px; font-size:1rem;" onclick="playAudio('${data.istima.text}')">
+                                <i class="fa-solid fa-circle-play" style="margin-right:6px;"></i> Putar Audio Simakan
+                            </button>
+                        </div>
+
+                        <div class="arabic-text" style="background:#F4F6F6; padding: 15px; border-radius:10px;">${data.istima.text}</div>
+                        <p style="margin-top:15px; font-style: italic; color:#444; font-size: 0.9rem;"><b>Terjemahan:</b> "${data.istima.meaning}"</p>
+                        
+                        <div class="tajwid-box"><i class="fa-solid fa-lightbulb"></i> ${data.istima.tajwid}</div>
+                    </div>`;
+
+            } else if (currentMaharah === 'qiroah') {
+                container.innerHTML = `
+                    <div class="card">
+                        <h3><i class="fa-solid fa-book-open"></i> القراءة (Qiroah - Bacaan)</h3>
+                        <p style="margin-bottom: 10px; font-size:0.88rem; color:#666;">Bacalah teks berikut dengan tartil dan fasih:</p>
+                        
+                        <div class="arabic-text" style="line-height: 2.3; margin: 15px 0;">${data.qiroah.text}
+                            <button class="btn-audio" onclick="playAudio('${data.qiroah.text}')"><i class="fa-solid fa-volume-high"></i></button>
+                        </div>
+                        
+                        <div style="background: #E8EAF6; padding: 12px; border-radius: 8px; font-size: 0.9rem; color: #283593;">
+                            <b>Artinya:</b> ${data.qiroah.meaning}
+                        </div>
+
+                        <div class="tajwid-box"><i class="fa-solid fa-lightbulb"></i> ${data.qiroah.tajwid}</div>
+                    </div>`;
+
+            } else if (currentMaharah === 'kalam') {
+                let html = `<div class="card">
+                    <h3><i class="fa-solid fa-comments"></i> الكلام (Kalam - Percakapan)</h3>
+                    <p style="margin-bottom: 15px; font-size:0.88rem; color:#666;">Praktikkan dialog Bahasa Arab berikut bersama temanmu:</p>
+                    <div style="display: flex; flex-direction: column; gap: 12px;">`;
+
+                data.kalam.dialog.forEach(d => {
+                    html += `
+                        <div style="background: #F9F9F9; border-right: 4px solid var(--primary); padding: 10px 15px; border-radius: 8px;">
+                            <span style="font-weight: bold; color: var(--accent);">${d.speaker}:</span>
+                            <span class="arabic-text" style="font-size: 1.4rem; float: right;">${d.ar}</span>
+                            <button class="btn-audio" style="width:28px; height:28px; font-size:0.7rem;" onclick="playAudio('${d.ar}')"><i class="fa-solid fa-volume-high"></i></button>
+                            <div style="clear:both;"></div>
+                        </div>`;
+                });
+
+                html += `</div>
+                    <div class="tajwid-box"><i class="fa-solid fa-lightbulb"></i> ${data.kalam.tajwid}</div>
+                </div>`;
+                container.innerHTML = html;
+
+            } else if (currentMaharah === 'kitabah') {
+                let html = `<div class="card">
+                    <h3><i class="fa-solid fa-pen-nib"></i> الكتابة (Kitabah - Gramatika)</h3>
+                    <h4 style="color: var(--primary-dark); margin: 10px 0;">${data.kitabah.grammarTitle}</h4>
+                    <p style="font-size:0.9rem; margin-bottom: 10px;">${data.kitabah.grammarDesc}</p>
+                    
+                    <div style="background: #E0F2F1; padding: 15px; border-radius: 10px; margin-bottom: 15px;">
+                        <b>Contoh Penggunaan:</b>
+                        <ul style="margin-left: 20px; margin-top: 5px; font-size: 0.9rem;">`;
+                
+                data.kitabah.examples.forEach(ex => {
+                    html += `<li style="margin-bottom: 5px;">${ex}</li>`;
+                });
+
+                html += `</ul></div>
+                    <div class="tajwid-box"><i class="fa-solid fa-lightbulb"></i> ${data.kitabah.tajwid}</div>
+                </div>`;
+
+                html += renderQuizSection(data.quiz);
+                container.innerHTML = html;
+            }
+        }
+
+        // Render Quiz & LKPD
+        function renderQuizSection(quizData) {
+            let html = `
+                <div class="card" style="border: 2px dashed var(--secondary);">
+                    <h3><i class="fa-solid fa-pen-to-square"></i> LKPD & Quiz Interaktif</h3>
+                    <p style="font-size:0.88rem; color:#666; margin-bottom:15px;">Jawab pertanyaan di bawah ini untuk menguji pemahamanmu!</p>
+                    <div id="quizContainer">`;
+
+            quizData.forEach((q, qIndex) => {
+                html += `
+                    <div style="margin-bottom: 20px;">
+                        <p style="font-weight: 600; margin-bottom: 8px;">${qIndex + 1}. ${q.q}</p>`;
+                
+                q.options.forEach((opt, oIndex) => {
+                    html += `<button class="quiz-option" id="opt_${qIndex}_${oIndex}" onclick="checkAnswer(${qIndex}, ${oIndex}, ${q.ans})">${opt}</button>`;
+                });
+
+                html += `</div>`;
+            });
+
+            html += `</div>
+                    <button class="btn-bab" style="width:100%; justify-content:center; padding:10px; margin-top:10px;" onclick="loadContent()">
+                        <i class="fa-solid fa-arrows-rotate" style="margin-right: 5px;"></i> Ulangi Kuis Bab Ini
+                    </button>
+                </div>`;
+            return html;
+        }
+
+        // Pengecekan Jawaban & Penyimpanan Skor
+        function checkAnswer(qIndex, selectedOpt, correctOpt) {
+            const options = document.querySelectorAll(`[id^='opt_${qIndex}_']`);
+            options.forEach(opt => opt.disabled = true);
+
+            const selectedBtn = document.getElementById(`opt_${qIndex}_${selectedOpt}`);
+            
+            if (!quizScores[currentBab]) {
+                quizScores[currentBab] = { correct: 0, total: dataset[currentBab].quiz.length };
+            }
+
+            if (selectedOpt === correctOpt) {
+                selectedBtn.classList.add('correct');
+                quizScores[currentBab].correct += 1;
+            } else {
+                selectedBtn.classList.add('wrong');
+                document.getElementById(`opt_${qIndex}_${correctOpt}`).classList.add('correct');
+            }
+
+            localStorage.setItem('quizScores', JSON.stringify(quizScores));
+
+            // Simpan progres bab yang diselesaikan
+            let completedBab = JSON.parse(localStorage.getItem('completedBab') || '[]');
+            if (!completedBab.includes(currentBab)) {
+                completedBab.push(currentBab);
+                localStorage.setItem('completedBab', JSON.stringify(completedBab));
+            }
+
+            // Perbarui tombol navigasi (Muncul Centang Hijau)
+            renderBabButtons();
+
+            // Picu Konfeti & Suara Perayaan
+            triggerCelebrationEffect();
+
+            // Pemicu Modal Sertifikat Jika 6 Bab Selesai
+            if (completedBab.length === 6) {
+                setTimeout(() => {
+                    document.getElementById('certModal').style.display = 'flex';
+                }, 1000);
+            }
+        }
+
+        // Generasi Sertifikat & Transkrip
+        function generateCertificate() {
+            const name = document.getElementById('studentName').value.trim();
+            if (!name) {
+                alert("Harap masukkan nama lengkap Anda!");
+                return;
+            }
+
+            document.getElementById('displayStudentName').innerText = name;
+
+            const today = new Date();
+            const options = { year: 'numeric', month: 'long', day: 'numeric' };
+            document.getElementById('certDate').innerText = today.toLocaleDateString('id-ID', options);
+
+            const tbody = document.getElementById('transcriptBody');
+            tbody.innerHTML = '';
+
+            let totalScoreSum = 0;
+            let babCount = 0;
+
+            Object.keys(dataset).forEach((babKey, index) => {
+                const babData = dataset[babKey];
+                const scoreData = quizScores[babKey] || { correct: 0, total: babData.quiz.length };
+                
+                const score = Math.round((scoreData.correct / scoreData.total) * 100);
+                totalScoreSum += score;
+                babCount++;
+
+                let predikat = 'Mumtaz (Sangat Baik)';
+                if (score < 70) predikat = 'Maqbul (Cukup)';
+                else if (score < 85) predikat = 'Jayyid (Baik)';
+
+                const tr = document.createElement('tr');
+                tr.innerHTML = `
+                    <td>${index + 1}</td>
+                    <td style="text-align: left;">${babData.title}</td>
+                    <td><b>${score}</b></td>
+                    <td>${predikat}</td>
+                `;
+                tbody.appendChild(tr);
+            });
+
+            const avg = Math.round(totalScoreSum / babCount);
+            document.getElementById('avgScore').innerText = avg;
+
+            let finalPredikat = 'Mumtaz (Sangat Baik)';
+            if (avg < 70) finalPredikat = 'Maqbul (Cukup)';
+            else if (avg < 85) finalPredikat = 'Jayyid (Baik)';
+
+            document.getElementById('finalGrade').innerText = finalPredikat;
+
+            document.getElementById('certModal').style.display = 'none';
+            document.querySelector('.container').style.display = 'none';
+            document.getElementById('certificateContainer').style.display = 'block';
+        }
+
+        function closeCertificate() {
+            document.getElementById('certificateContainer').style.display = 'none';
+            document.querySelector('.container').style.display = 'block';
+        }
+
+        // Reset Total Data Progres
+        function confirmResetAllData() {
+            const isConfirmed = confirm("Apakah kamu yakin ingin menghapus semua nilai dan mengulang kuis dari BAB 1?");
+            if (isConfirmed) {
+                localStorage.removeItem('completedBab');
+                localStorage.removeItem('quizScores');
+                quizScores = {};
+                currentBab = 'bab1';
+                currentMaharah = 'mufrodat';
+                
+                document.getElementById('certificateContainer').style.display = 'none';
+                document.querySelector('.container').style.display = 'block';
+                
+                renderBabButtons();
+                loadContent();
+                alert("Progres berhasil direset! Selamat belajar kembali.");
+            }
+        }
+    </script>
+</body>
+</html>

@@ -48,15 +48,8 @@
             z-index: 100;
         }
 
-        header h1 {
-            font-size: 1.5rem;
-            font-weight: 700;
-        }
-
-        header p {
-            font-size: 0.85rem;
-            opacity: 0.9;
-        }
+        header h1 { font-size: 1.5rem; font-weight: 700; }
+        header p { font-size: 0.85rem; opacity: 0.9; }
 
         .btn-reset {
             margin-top: 8px;
@@ -71,10 +64,7 @@
             transition: all 0.2s;
         }
 
-        .btn-reset:hover {
-            opacity: 0.9;
-            transform: scale(1.03);
-        }
+        .btn-reset:hover { opacity: 0.9; transform: scale(1.03); }
 
         /* Navigasi BAB */
         nav.bab-nav {
@@ -174,10 +164,7 @@
             font-size: 0.88rem;
         }
 
-        .tajwid-box i {
-            color: var(--secondary);
-            margin-right: 5px;
-        }
+        .tajwid-box i { color: var(--secondary); margin-right: 5px; }
 
         /* Grid Mufrodat */
         .mufrodat-grid {
@@ -197,10 +184,7 @@
             transition: all 0.2s;
         }
 
-        .mufrodat-item:hover {
-            border-color: var(--primary);
-            background: #E0F2F1;
-        }
+        .mufrodat-item:hover { border-color: var(--primary); background: #E0F2F1; }
 
         /* Audio Button */
         .btn-audio {
@@ -218,12 +202,20 @@
         }
 
         /* Quiz / LKPD Options */
+        .quiz-card {
+            background: #FAF8F5;
+            border: 1px solid #EAE6DF;
+            border-radius: 12px;
+            padding: 16px;
+            margin-bottom: 16px;
+        }
+
         .quiz-option {
             display: block;
             width: 100%;
             padding: 12px;
             margin: 8px 0;
-            background: #F5F5F5;
+            background: white;
             border: 2px solid #DDD;
             border-radius: 10px;
             text-align: left;
@@ -313,10 +305,7 @@
             text-align: center;
         }
 
-        .cert-summary {
-            font-weight: bold;
-            background-color: #E0F2F1 !important;
-        }
+        .cert-summary { font-weight: bold; background-color: #E0F2F1 !important; }
 
         /* Footer */
         footer {
@@ -328,7 +317,7 @@
             margin-top: auto;
         }
 
-        /* Pengaturan Cetak PDF / Printer */
+        /* Print Settings */
         @media print {
             header, nav, .maharah-nav, footer, .btn-bab, .modal-overlay, #babHeader, .no-print { display: none !important; }
             #certificateContainer { display: block !important; }
@@ -377,7 +366,7 @@
         <div id="maharahContent"></div>
     </div>
 
-    <!-- Modal Input Nama untuk Sertifikat -->
+    <!-- Modal Input Nama -->
     <div class="modal-overlay" id="certModal">
         <div class="modal-content">
             <i class="fa-solid fa-trophy" style="font-size: 3rem; color: var(--secondary);"></i>
@@ -390,7 +379,7 @@
         </div>
     </div>
 
-    <!-- Container Tampilan Sertifikat & Transkrip Nilai -->
+    <!-- Tampilan Sertifikat -->
     <div id="certificateContainer" class="container" style="display: none;">
         <div id="certificateView">
             <div class="cert-header">شَهَادَةُ تَقْدِيرٍ</div>
@@ -402,7 +391,6 @@
                 <b>Bahasa Arab Kelas 9 MTs (BAB 1 - BAB 6)</b>.
             </p>
 
-            <!-- Tabel Transkrip Nilai -->
             <div style="margin-top: 20px; text-align: left;">
                 <h4 style="color: var(--primary-dark); text-align: center; margin-bottom: 8px;">
                     <i class="fa-solid fa-list-check"></i> TRANSKRIP HASIL EVALUASI KUIS
@@ -450,7 +438,7 @@
     </footer>
 
     <script>
-        // Data Pembelajaran Lengkap BAB 1 - BAB 6
+        // Data Pembelajaran Lengkap BAB 1 - BAB 6 Beserta 10 Soal Kuis Setiap Bab
         const dataset = {
             bab1: {
                 title: "BAB 1: رأس السنة الهجرية",
@@ -498,7 +486,15 @@
                 },
                 quiz: [
                     { q: "Apa arti dari 'سَنَةٌ هِجْرِيَّةٌ جَدِيدَةٌ'?", options: ["Tahun Baru Hijriah", "Hari Raya Fitri", "Bulan Ramadhan"], ans: 0 },
-                    { q: "Siapa khalifah yang menetapkan kalender Hijriah?", options: ["Abu Bakar RA", "Umar bin Khattab RA", "Utsman bin Affan RA"], ans: 1 }
+                    { q: "Kapan umat Islam merayakan Tahun Baru Hijriah?", options: ["1 Syawwal", "1 Muharram", "10 Dzulhijjah"], ans: 1 },
+                    { q: "Siapa sahabat yang menetapkan awal Kalender Hijriah?", options: ["Abu Bakar As-Siddiq RA", "Umar bin Khattab RA", "Ali bin Abi Thalib RA"], ans: 1 },
+                    { q: "Nabi Muhammad SAW dan sahabat berhijrah dari Makkah ke...", options: ["Madinah", "Thaif", "Syam"], ans: 0 },
+                    { q: "Perubahan Fi'il Madhi untuk Dhamir 'أَنَا' (Saya) dari kata 'هَاجَرَ' adalah...", options: ["هَاجَرْتُ", "هَاجَرْتَ", "هَاجَرَتْ"], ans: 0 },
+                    { q: "Perubahan Fi'il Madhi untuk Dhamir 'هِيَ' (Dia perempuan) dari kata 'تَرَكَ' adalah...", options: ["تَرَكْتُ", "تَرَكَتْ", "تَرَكْتَ"], ans: 1 },
+                    { q: "Arti dari kata 'شَهْرٌ' dalam Bahasa Indonesia adalah...", options: ["Tahun", "Bulan", "Hari"], ans: 1 },
+                    { q: "Lanjutan kalimat: 'تَرَكَ الْمُسْلِمُونَ أَمْوَالَهُمْ وَ... فِي مَكَّةَ'", options: ["بُيُوتَهُمْ", "مَدَارِسَهُمْ", "أَشْجَارَهُمْ"], ans: 0 },
+                    { q: "Di manakah umat Islam mendengarkan ceramah agama saat peringatan tahun baru?", options: ["فِي الْمَسْجِدِ", "فِي السُّوقِ", "فِي الْمَزْرَعَةِ"], ans: 0 },
+                    { q: "Apa arti fi'il madhi 'هَاجَرَ'?", options: ["Telah bekerja", "Telah berhijrah", "Telah menulis"], ans: 1 }
                 ]
             },
             bab2: {
@@ -544,8 +540,16 @@
                     tajwid: "<b>Tips Tajwid:</b> Panjangkan harakat Alif pada كَانَ sepanjang 2 harakat."
                 },
                 quiz: [
-                    { q: "Kapan Nabi Muhammad SAW dilahirkan?", options: ["12 Rabi'ul Awwal", "1 Muharram", "17 Ramadhan"], ans: 0 },
-                    { q: "Apa fungsi Kāna terhadap Khabar?", options: ["Menashabkan (Fathah)", "Merfa'kan (Dammah)", "Menjazamkan (Sukun)"], ans: 0 }
+                    { q: "Pada tanggal berapa Nabi Muhammad SAW dilahirkan?", options: ["12 Rabi'ul Awwal", "17 Ramadhan", "1 Muharram"], ans: 0 },
+                    { q: "Tahun kelahiran Nabi Muhammad SAW dinamakan...", options: ["عَامُ الْفِيلِ", "عَامُ الْحُزْنِ", "عَامُ الْهِجْرَةِ"], ans: 0 },
+                    { q: "Siapakah nama ayah dari Nabi Muhammad SAW?", options: ["عبد الله", "أبو طالب", "عبد المطلب"], ans: 0 },
+                    { q: "Apa fungsi 'كَانَ' terhadap Khabar-nya?", options: ["Menashabkan (Fathah)", "Merfa'kan (Dammah)", "Menjazamkan (Sukun)"], ans: 0 },
+                    { q: "Lengkapi kalimat: 'كَانَ النَّبِيُّ ...'", options: ["كَرِيمًا", "كَرِيمٌ", "كَرِيمٍ"], ans: 0 },
+                    { q: "Apa arti dari 'مُحَاضَرَةٌ دِينِيَّةٌ'?", options: ["Ceramah Agama", "Pelajaran Bahasa", "Upacara Bendera"], ans: 0 },
+                    { q: "Bentuk muannats dari 'كَانَ' untuk isim muannats adalah...", options: ["كَانَتْ", "كُنْتُ", "كَانُوا"], ans: 0 },
+                    { q: "Apa arti dari fi'il 'وُلِدَ'?", options: ["Dilahirkan", "Wafat", "Diutus"], ans: 0 },
+                    { q: "Siapa yang menyampaikan ceramah agama pada teks qiroah Bab 2?", options: ["الأُسْتَاذُ حَسَنٌ", "الأُسْتَاذُ عُمَرُ", "الأُسْتَاذُ علي"], ans: 0 },
+                    { q: "Lengkapi: 'أَقَامَتْ مَدْرَسَتُنَا حَفْلًا كَبِيرًا بِمُنَاسَبَةِ ...'", options: ["مَوْلِدِ الرَّسُولِ", "عِيدِ الْفِطْرِ", "رَأْسِ السَّنَةِ"], ans: 0 }
                 ]
             },
             bab3: {
@@ -592,8 +596,16 @@
                     tajwid: "<b>Tips Tajwid:</b> Perhatikan konsistensi panjang pendek huruf."
                 },
                 quiz: [
-                    { q: "Surah apa yang pertama kali turun?", options: ["Al-Fatihah", "Al-'Alaq", "Al-Baqarah"], ans: 1 },
-                    { q: "Kapan Idul Fitri dirayakan?", options: ["1 Syawwal", "10 Dzulhijjah", "1 Muharram"], ans: 0 }
+                    { q: "Surah Al-Qur'an apakah yang pertama kali diturunkan?", options: ["سُورَةُ الْعَلَقِ", "سُورَةُ الْفَاتِحَةِ", "سُورَةُ الْبَقَرَةِ"], ans: 0 },
+                    { q: "Di manakah Al-Qur'an pertama kali diturunkan?", options: ["فِي غَارِ حِرَاءٍ", "فِي الْمَسْجِدِ النَّبَوِيِّ", "فِي جَبَلِ أُحُدٍ"], ans: 0 },
+                    { q: "Pada tanggal berapakah peristiwa Nuzulul Qur'an diperingati?", options: ["17 Ramadhan", "1 Muharram", "12 Rabi'ul Awwal"], ans: 0 },
+                    { q: "Dua hari raya dalam Islam dinamakan...", options: ["عِيدُ الْفِطْرِ وَعِيدُ الْأَضْحَى", "عِيدُ الْمِيلَادِ وَعِيدُ النَّصْرِ", "عِيدُ السَّنَةِ وَعِيدُ الشَّهْرِ"], ans: 0 },
+                    { q: "Kapan umat Islam merayakan Idul Fitri?", options: ["1 Syawwal", "10 Dzulhijjah", "1 Muharram"], ans: 0 },
+                    { q: "Apa ibadah utama yang dilakukan sebelum merayakan Idul Fitri?", options: ["صِيَامُ رَمَضَانَ", "الْحَجُّ", "ذَبْحُ الْأُضْحِيَّةِ"], ans: 0 },
+                    { q: "Fi'il Tsulatsy Mazid 'أَنْزَلَ' mengikuti wazan/pola...", options: ["أَفْعَلَ", "فَعَّلَ", "اِفْتَعَلَ"], ans: 0 },
+                    { q: "Apa arti dari fi'il 'ذَبَحَ - يَذْبَحُ'?", options: ["Menyembelih", "Berpuasa", "Menulis"], ans: 0 },
+                    { q: "Kapan Idul Adha dirayakan oleh umat Islam?", options: ["10 Dzulhijjah", "1 Syawwal", "17 Ramadhan"], ans: 0 },
+                    { q: "Bentuk Fi'il Mudhari' dari kata 'أَنْزَلَ' adalah...", options: ["يُنْزِلُ", "يَنْزِلُ", "تَنْزِلُ"], ans: 0 }
                 ]
             },
             bab4: {
@@ -640,8 +652,16 @@
                     tajwid: "<b>Tips Tajwid:</b> Huruf Hamzah di awal pola أَفْعَلُ dibaca jelas (Akal)."
                 },
                 quiz: [
-                    { q: "Apa arti dari 'شَلَّالٌ'?", options: ["Air Terjun", "Danau", "Laut"], ans: 0 },
-                    { q: "Bentuk Isim Tafdhil dari 'كَبِيرٌ' adalah...", options: ["أَكْبَرُ", "كَبِيرَةٌ", "كُبْرَى"], ans: 0 }
+                    { q: "Apa arti kosakata 'شَلَّالٌ'?", options: ["Air Terjun", "Gunung", "Sawah"], ans: 0 },
+                    { q: "Bentuk jamak dari kata 'جَبَلٌ' (Gunung) adalah...", options: ["جِبَالٌ", "بِحَارٌ", "أَشْجَارٌ"], ans: 0 },
+                    { q: "Isim Tafdhil (lebih/paling) dari kata 'جَمِيلٌ' adalah...", options: ["أَجْمَلُ", "أَكْبَرُ", "أَكْثَرُ"], ans: 0 },
+                    { q: "Isim Tafdhil dari kata 'كَبِيرٌ' adalah...", options: ["أَكْبَرُ", "أَصْغَرُ", "أَجْمَلُ"], ans: 0 },
+                    { q: "Terjemahan dari 'شَاطِئُ الْبَحْرِ' adalah...", options: ["Pantai / Tepi Laut", "Puncak Gunung", "Tengah Hutan"], ans: 0 },
+                    { q: "Ke mana para siswa pergi berwisata dalam teks qiroah?", options: ["إِلَى الْجَبَلِ", "إِلَى السُّوقِ", "إِلَى الْمَدِينَةِ"], ans: 0 },
+                    { q: "Apa arti ucapan kekaguman 'سُبْحَانَ اللهِ'?", options: ["Maha Suci Allah", "Segala puji bagi Allah", "Allah Maha Besar"], ans: 0 },
+                    { q: "Lengkapi kalimat: 'الهَوَاءُ فِي الْجَبَلِ ...'", options: ["نَقِيٌّ", "حَارٌّ", "مُتَلَوِّثٌ"], ans: 0 },
+                    { q: "Apa lawan kata / antonim dari 'كَبِيرٌ' (Besar)?", options: ["صَغِيرٌ", "جَمِيلٌ", "كِثِيرٌ"], ans: 0 },
+                    { q: "Isim Tafdhil dari kata 'كَثِيرٌ' (Banyak) adalah...", options: ["أَكْثَرُ", "أَكْبَرُ", "أَحْسَنُ"], ans: 0 }
                 ]
             },
             bab5: {
@@ -688,8 +708,16 @@
                     tajwid: "<b>Tips Tajwid:</b> Pertahankan kecermatan membaca Tasydid pada اللَّذِي."
                 },
                 quiz: [
-                    { q: "Isim Maushul untuk kata tunggal laki-laki adalah...", options: ["الَّذِي", "الَّتِي", "الَّذِينَ"], ans: 0 },
-                    { q: "Apa arti dari 'شَمْسٌ وَقَمَرٌ'?", options: ["Matahari dan Bulan", "Bintang dan Alam", "Langit dan Bumi"], ans: 0 }
+                    { q: "Isim Maushul kata sambung untuk mufrad mudzakkar (tunggal laki-laki) adalah...", options: ["الَّذِي", "الَّتِي", "الَّذِينَ"], ans: 0 },
+                    { q: "Isim Maushul untuk mufrad muannats (tunggal perempuan) adalah...", options: ["الَّتِي", "الَّذِي", "الَّذِينَ"], ans: 0 },
+                    { q: "Isim Maushul untuk jamak mudzakkar (banyak laki-laki) adalah...", options: ["الَّذِينَ", "الَّذِي", "الَّتِي"], ans: 0 },
+                    { q: "Apa arti dari kata 'الْخَالِقُ'?", options: ["Maha Pencipta", "Makhluk Ciptaan", "Raja Alam"], ans: 0 },
+                    { q: "Berapa lama Allah menciptakan langit dan bumi menurut teks Istima'?", options: ["سِتَّةِ أَيَّامٍ (6 Hari)", "ثَلَاثَةِ أَيَّامٍ (3 Hari)", "خَمْسَةِ أَيَّامٍ (5 Hari)"], ans: 0 },
+                    { q: "Benda langit yang bersinar dan menerangi bumi di malam hari adalah...", options: ["الْقَمَرُ وَالنُّجُومُ", "الشَّمْسُ", "السَّحَابُ"], ans: 0 },
+                    { q: "Apa benda langit yang memberikan cahaya dan panas di siang hari?", options: ["الشَّمْسُ", "الْقَمَرُ", "الْكَوْكَبُ"], ans: 0 },
+                    { q: "Lengkapi kalimat: 'اللهُ هُوَ ... خَلَقَ السَّمَاوَاتِ وَالْأَرْضَ'", options: ["الَّذِي", "الَّتِي", "الَّذِينَ"], ans: 0 },
+                    { q: "Mengapa Allah menciptakan manusia menurut dialog Kalam?", options: ["لِنَعْبُدَهُ (Untuk menyembah-Nya)", "لِنَنَامَ (Untuk tidur)", "لِنَلْعَبَ (Untuk bermain)"], ans: 0 },
+                    { q: "Apa arti dari kosakata 'المَخْلُوقَاتُ'?", options: ["Ciptaan-ciptaan / Makhluk", "Para Malaikat", "Pemandangan"], ans: 0 }
                 ]
             },
             bab6: {
@@ -735,8 +763,16 @@
                     tajwid: "<b>Tips Tajwid:</b> Perhatikan kejelasan mati (Sukun) pada Fi'il Majzum."
                 },
                 quiz: [
-                    { q: "Apa arti 'النَّظَافَةُ مِنَ الْإِيمَانِ'?", options: ["Kebersihan bagian dari iman", "Menanam pohon itu wajib", "Membawa sampah pada tempatnya"], ans: 0 },
-                    { q: "Manakah yang termasuk Huruf Nashab?", options: ["أَنْ", "لَمْ", "عَلَى"], ans: 0 }
+                    { q: "Lanjutkan hadits/kata mutiara berikut: 'النَّظَافَةُ مِنَ ...'", options: ["الْإِيمَانِ", "الْعِلْمِ", "الْمَالِ"], ans: 0 },
+                    { q: "Apa arti dari kosakata 'تَلَوُّثٌ'?", options: ["Polusi / Pencemaran", "Kebersihan", "Keindahan"], ans: 0 },
+                    { q: "Di manakah seharusnya kita membuang sampah ('الْقُمَامَةُ')?", options: ["فِي مَكَانِهَا (Pada tempatnya)", "فِي الشَّارِعِ (Di jalan)", "فِي النَّهْرِ (Di sungai)"], ans: 0 },
+                    { q: "Manakah yang termasuk Huruf Nashab (membuat Fi'il Mudhari berharakat Fathah)?", options: ["أَنْ / لَنْ / كَيْ", "لَمْ / لَا", "مِنْ / إِلَى"], ans: 0 },
+                    { q: "Manakah yang termasuk Huruf Jazam (membuat Fi'il Mudhari berharakat Sukun)?", options: ["لَمْ / لَا الناهية", "أَنْ / كَيْ", "عَلَى / فِي"], ans: 0 },
+                    { q: "Harakat akhir Fi'il Mudhari setelah kemasukan huruf 'أَنْ' adalah...", options: ["Fathah (نُحَافِظَ)", "Sukun (نُحَافِظْ)", "Dammah (نُحَافِظُ)"], ans: 0 },
+                    { q: "Harakat akhir Fi'il Mudhari setelah kemasukan huruf 'لَا' larangan (Nahi) adalah...", options: ["Sukun (لَا تُفْسِدْ)", "Fathah (لَا تُفْسِدَ)", "Dammah (لَا تُفْسِدُ)"], ans: 0 },
+                    { q: "Apa manfaat dari 'غَرْسُ الْأَشْجَارِ' (Menanam Pohon)?", options: ["Pencemaran udara hilang & udara segar", "Menyebabkan banjir", "Membuat jalanan sempit"], ans: 0 },
+                    { q: "Apa dampak buruk dari 'التَّلَوُّثُ' (Polusi) bagi manusia?", options: ["يُسَبِّبُ الأَمْرَاضَ (Menyebabkan penyakit)", "يَجْعَلُ الصِّحَّةَ جَيِّدَةً", "يَزِيدُ النَّشَاطَ"], ans: 0 },
+                    { q: "Arti dari kata 'الْبِيئَةُ' dalam Bahasa Indonesia adalah...", options: ["Lingkungan", "Kesehatan", "Kebersihan"], ans: 0 }
                 ]
             }
         };
@@ -752,7 +788,7 @@
             loadContent();
         };
 
-        // Render Navigasi Bab + Centang Hijau (✓)
+        // Render Navigasi Bab + Centang Hijau
         function renderBabButtons() {
             const babNav = document.getElementById('babNav');
             babNav.innerHTML = '';
@@ -772,7 +808,6 @@
             });
         }
 
-        // Pindah Bab & Maharah
         function switchBab(babKey) {
             currentBab = babKey;
             renderBabButtons();
@@ -786,7 +821,6 @@
             loadContent();
         }
 
-        // Text-to-Speech Arab
         function playAudio(text) {
             if ('speechSynthesis' in window) {
                 window.speechSynthesis.cancel();
@@ -797,7 +831,6 @@
             }
         }
 
-        // Efek Perayaan (Konfeti & Suara Utterance)
         function triggerCelebrationEffect() {
             confetti({ particleCount: 50, angle: 60, spread: 55, origin: { x: 0, y: 0.7 } });
             confetti({ particleCount: 50, angle: 120, spread: 55, origin: { x: 1, y: 0.7 } });
@@ -919,17 +952,17 @@
             }
         }
 
-        // Render Quiz & LKPD
+        // Render 10 Soal Kuis
         function renderQuizSection(quizData) {
             let html = `
                 <div class="card" style="border: 2px dashed var(--secondary);">
-                    <h3><i class="fa-solid fa-pen-to-square"></i> LKPD & Quiz Interaktif</h3>
-                    <p style="font-size:0.88rem; color:#666; margin-bottom:15px;">Jawab pertanyaan di bawah ini untuk menguji pemahamanmu!</p>
+                    <h3><i class="fa-solid fa-pen-to-square"></i> LKPD & Quiz Interaktif (10 Soal Evaluasi)</h3>
+                    <p style="font-size:0.88rem; color:#666; margin-bottom:15px;">Pilih jawaban yang paling tepat untuk menguji pemahamanmu!</p>
                     <div id="quizContainer">`;
 
             quizData.forEach((q, qIndex) => {
                 html += `
-                    <div style="margin-bottom: 20px;">
+                    <div class="quiz-card">
                         <p style="font-weight: 600; margin-bottom: 8px;">${qIndex + 1}. ${q.q}</p>`;
                 
                 q.options.forEach((opt, oIndex) => {
@@ -947,7 +980,7 @@
             return html;
         }
 
-        // Pengecekan Jawaban & Penyimpanan Skor
+        // Evaluasi Kuis & Verifikasi Jawaban
         function checkAnswer(qIndex, selectedOpt, correctOpt) {
             const options = document.querySelectorAll(`[id^='opt_${qIndex}_']`);
             options.forEach(opt => opt.disabled = true);
@@ -968,28 +1001,29 @@
 
             localStorage.setItem('quizScores', JSON.stringify(quizScores));
 
-            // Simpan progres bab yang diselesaikan
-            let completedBab = JSON.parse(localStorage.getItem('completedBab') || '[]');
-            if (!completedBab.includes(currentBab)) {
-                completedBab.push(currentBab);
-                localStorage.setItem('completedBab', JSON.stringify(completedBab));
-            }
+            // Periksa apakah semua 10 soal di bab ini sudah dijawab
+            const totalQuestions = dataset[currentBab].quiz.length;
+            const answeredQuestions = document.querySelectorAll('.quiz-card .quiz-option:disabled').length / 3; // 3 Pilihan Jawaban per Soal
 
-            // Perbarui tombol navigasi (Muncul Centang Hijau)
-            renderBabButtons();
+            if (answeredQuestions >= totalQuestions) {
+                let completedBab = JSON.parse(localStorage.getItem('completedBab') || '[]');
+                if (!completedBab.includes(currentBab)) {
+                    completedBab.push(currentBab);
+                    localStorage.setItem('completedBab', JSON.stringify(completedBab));
+                }
 
-            // Picu Konfeti & Suara Perayaan
-            triggerCelebrationEffect();
+                renderBabButtons();
+                triggerCelebrationEffect();
 
-            // Pemicu Modal Sertifikat Jika 6 Bab Selesai
-            if (completedBab.length === 6) {
-                setTimeout(() => {
-                    document.getElementById('certModal').style.display = 'flex';
-                }, 1000);
+                if (completedBab.length === 6) {
+                    setTimeout(() => {
+                        document.getElementById('certModal').style.display = 'flex';
+                    }, 1200);
+                }
             }
         }
 
-        // Generasi Sertifikat & Transkrip
+        // Buat Sertifikat Digital & Transkrip Rincian Nilai
         function generateCertificate() {
             const name = document.getElementById('studentName').value.trim();
             if (!name) {
@@ -1050,7 +1084,6 @@
             document.querySelector('.container').style.display = 'block';
         }
 
-        // Reset Total Data Progres
         function confirmResetAllData() {
             const isConfirmed = confirm("Apakah kamu yakin ingin menghapus semua nilai dan mengulang kuis dari BAB 1?");
             if (isConfirmed) {
